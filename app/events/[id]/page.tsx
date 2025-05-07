@@ -1,30 +1,23 @@
-import type { Metadata } from "next"
-import { notFound } from "next/navigation"
-import Image from "next/image"
-import { Calendar, MapPin, Ticket } from "lucide-react"
-import { getEventById } from "@/lib/data"
-import ReservationForm from "@/components/reservation-form"
-import ProtectedRoute from "@/components/protected-route"
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+import Image from "next/image";
+import { Calendar, MapPin, Ticket } from "lucide-react";
+import { getEventById, getEvents } from "@/lib/data";
+import ReservationForm from "@/components/reservation-form";
+import ProtectedRoute from "@/components/protected-route";
 
 interface EventPageProps {
   params: {
-    id: string
-  }
+    id: string;
+  };
 }
 
-export async function generateMetadata({ params }: EventPageProps): Promise<Metadata> {
-  const event = await getEventById(params.id)
-
-  if (!event) {
-    return {
-      title: "Event Not Found",
-    }
-  }
-
-  return {
-    title: event.name,
-    description: event.description,
-  }
+// Generate static paths at build time
+export async function generateStaticParams() {
+  const events = await getEvents();
+  return events.map((event) => ({
+    id: event.id.toString(),
+  }));
 }
 
 export default function EventPage({ params }: EventPageProps) {
@@ -32,21 +25,28 @@ export default function EventPage({ params }: EventPageProps) {
     <ProtectedRoute>
       <EventDetails id={params.id} />
     </ProtectedRoute>
-  )
+  );
 }
 
 async function EventDetails({ id }: { id: string }) {
-  const event = await getEventById(id)
+  const event = await getEventById(id);
 
   if (!event) {
-    notFound()
+    notFound();
   }
 
   return (
     <div className="container mx-auto px-4 py-12">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div className="relative h-[300px] md:h-[500px] rounded-lg overflow-hidden">
-          <Image src={event.thumbnail || "/placeholder.svg"} alt={event.name} fill className="object-cover" />
+          <Image
+            src={event.thumbnail || "/placeholder.svg"}
+            alt={event.name}
+            fill
+            className="object-cover"
+            sizes="(max-width: 768px) 100vw, 50vw"
+            priority
+          />
         </div>
         <div className="space-y-6">
           <div>
@@ -92,5 +92,5 @@ async function EventDetails({ id }: { id: string }) {
         </div>
       </div>
     </div>
-  )
+  );
 }
