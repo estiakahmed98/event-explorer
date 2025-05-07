@@ -1,60 +1,60 @@
-"use client"
+"use client";
 
-import type React from "react"
-
-import { useState, useEffect } from "react"
-import Link from "next/link"
-import { useRouter, useSearchParams } from "next/navigation"
-import { ArrowLeft } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { useToast } from "@/components/ui/use-toast"
-import { useAuth } from "@/context/auth-context"
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
+import { ArrowLeft } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { useToast } from "@/components/ui/use-toast";
+import { useAuth } from "@/context/auth-context";
 
 export default function ForgotPasswordForm() {
-  const [email, setEmail] = useState("")
-  const [loading, setLoading] = useState(false)
-  const { resetPassword } = useAuth()
-  const { toast } = useToast()
-  const router = useRouter()
-  const searchParams = useSearchParams()
+  const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
+  const { resetPassword } = useAuth();
+  const { toast } = useToast();
+  const router = useRouter();
+  const searchParams = useSearchParams();
 
   useEffect(() => {
-    const emailParam = searchParams.get("email")
-    if (emailParam) {
-      setEmail(decodeURIComponent(emailParam))
+    if (searchParams) {
+      const emailParam = searchParams.get("email");
+      if (emailParam) {
+        setEmail(decodeURIComponent(emailParam));
+      }
     }
-  }, [searchParams])
+  }, [searchParams]);
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setLoading(true)
+    e.preventDefault();
+    setLoading(true);
 
     try {
-      await resetPassword(email)
+      await resetPassword(email);
       toast({
         title: "Password reset email sent",
         description: "Check your email for a link to reset your password.",
-      })
-      // Redirect to Gmail
-      window.location.href = "https://mail.google.com"
+      });
+      window.location.href = "https://mail.google.com";
     } catch (error: any) {
       toast({
         title: "Reset failed",
         description: error.message || "Failed to send password reset email.",
         variant: "destructive",
-      })
-      setLoading(false)
+      });
+      setLoading(false);
     }
-  }
+  };
 
   return (
     <div className="space-y-6">
       <div className="space-y-2 text-center">
         <h1 className="text-3xl font-bold">Reset your password</h1>
         <p className="text-muted-foreground">
-          Enter your email address and we&apos;ll send you a link to reset your password
+          Enter your email address and we&apos;ll send you a link to reset your
+          password
         </p>
       </div>
       <form onSubmit={handleSubmit} className="space-y-4">
@@ -82,5 +82,5 @@ export default function ForgotPasswordForm() {
         </Button>
       </div>
     </div>
-  )
+  );
 }
