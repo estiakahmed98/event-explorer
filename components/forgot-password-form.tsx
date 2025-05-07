@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { Suspense } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
@@ -10,7 +11,7 @@ import { Label } from "@/components/ui/label";
 import { useToast } from "@/components/ui/use-toast";
 import { useAuth } from "@/context/auth-context";
 
-export default function ForgotPasswordForm() {
+function ForgotPasswordFormContent() {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const { resetPassword } = useAuth();
@@ -82,5 +83,13 @@ export default function ForgotPasswordForm() {
         </Button>
       </div>
     </div>
+  );
+}
+
+export default function ForgotPasswordForm() {
+  return (
+    <Suspense>
+      <ForgotPasswordFormContent />
+    </Suspense>
   );
 }

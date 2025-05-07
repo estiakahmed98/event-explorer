@@ -9,10 +9,8 @@ export const metadata: Metadata = {
 
 export default function ForgotPasswordPage() {
   return (
-    <div className="container mx-auto px-4 py-12">
-      <Suspense fallback={<div>Loading form...</div>}>
-        <ForgotPasswordForm />
-      </Suspense>
-    </div>
+    <Suspense fallback={<div>Loading...</div>}>
+      <ForgotPasswordForm />
+    </Suspense>
   );
 }
