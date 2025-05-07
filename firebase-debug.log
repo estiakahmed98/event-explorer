@@ -1,0 +1,26 @@
+[debug] [2025-05-07T04:24:33.562Z] ----------------------------------------------------------------------
+[debug] [2025-05-07T04:24:33.564Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\estia\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2025-05-07T04:24:33.565Z] CLI Version:   14.2.2
+[debug] [2025-05-07T04:24:33.565Z] Platform:      win32
+[debug] [2025-05-07T04:24:33.565Z] Node Version:  v22.11.0
+[debug] [2025-05-07T04:24:33.565Z] Time:          Wed May 07 2025 10:24:33 GMT+0600 (Bangladesh Standard Time)
+[debug] [2025-05-07T04:24:33.566Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-05-07T04:24:33.752Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-05-07T04:24:33.752Z] > authorizing via signed-in user (estiakahmed898@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  C:\EveryThing\Programin Hero\event-explorer
+
+Before we get started, keep in mind:
+
+  * You are currently outside your home directory
+  * You are initializing within an existing Firebase project directory
+
